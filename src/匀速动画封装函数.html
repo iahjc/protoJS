@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="alinec.js"></script>
+
+		<style>
+			*{margin:0; padding:0;}
+			#demo1{ width:100px; height:100px; position:absolute; top:30px; left:0; background-color:pink;}
+			#demo2{ width:200px; height:200px; position:absolute; top:150px; left:0; background-color:#ccc;}
+		</style>
+	</head>
+
+	<body>
+		<button id="btn1" >200</button>
+		<button id="btn2" >400</button>
+
+		<div id="demo1"></div>
+		<div id="demo2"></div>
+	</body>
+</html>
+
+<script>
+	
+	document.getElementById("btn1").onclick = function(){
+		animation(document.getElementById("demo1"),200);
+
+		animation(document.getElementById("demo2"),500);
+	}
+
+	document.getElementById("btn2").onclick = function(){
+		animation(document.getElementById("demo1"),300);
+
+		
+	}
+
+	
+	
+	function animation(obj,target){
+		clearInterval(obj.inteval);
+		
+		obj.inteval = setInterval(function(){
+			var step = (target - obj.offsetLeft)/10;
+			
+			step = step > 0 ? Math.ceil(step) : Math.floor(step);
+			
+			obj.style.left = obj.offsetLeft + step + "px";
+
+			console.log(obj.offsetLeft +"    "+ target);
+			if(obj.offsetLeft === target) clearInterval(obj.inteval);
+
+		},30);
+	}
+
+</script>
+

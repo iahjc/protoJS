@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title></title>
+	<style>
+		*{margin:0; padding:0;}
+	
+		#yeye{
+			width:800px;
+			height:800px;
+			background-color:yellow;
+			overflow:hidden;
+			
+		}
+
+		#father{
+			width:400px;
+			height:400px;
+			background-color:pink;
+			margin:100px auto;
+		}
+
+		#son{
+			width:100px;
+			height:100px;
+			background-color:#444;
+		}
+	</style>
+	<script src="alinec.js"></script>
+</head>
+<body>
+	<div id="yeye">
+		<div id="father">
+			<div id="son"></div>
+		</div>
+	</div>
+
+	
+	<script>
+		
+
+
+		tools.addLog("log");
+		$.getId("father").style.position = "relative";
+		$.getId("son").style.marginLeft = "200px"
+
+		$.addEvent(tools.addBtn({
+			text:"offsetLeft",
+			id:"ddd",
+			width:"100px",
+			height:"32px",
+			fontSize:"12px"
+		}),"click",function(){
+			tools.addMsgLog("log","offsetLeft:  "+$.getId("son").offsetLeft);
+		});
+		
+
+		$.addEvent(tools.addBtn({
+			text:"offsetTop",
+			id:"ddd",
+			width:"100px",
+			height:"32px",
+			fontSize:"12px"
+		}),"click",function(){
+			tools.addMsgLog("log","offsetTop:  "+$.getId("son").offsetLeft);
+		});
+	</script>
+</body>
+</html>

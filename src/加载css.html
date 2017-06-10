@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script type="text/javascript" src="alinec.js"></script>
+	</head>
+	<body>
+	</body>
+</html>
+
+<script>
+	loadCss($.getClient().width);
+	window.addEventListener("resize",function(){
+		loadCss($.getClient().width);
+	},false);
+
+
+	function loadCss(size){
+		var _style = document.getElementById("wbCss");
+		if(!_style){
+			_style = document.createElement("style");
+			_style.id = "wbCss";
+			document.head.appendChild(_style);
+		}
+
+		
+		if(size > 1000){
+			_style.setAttribute("href","css1.css");
+		}else if(size > 600 && $.getClient().width <1000 ){
+			_style.setAttribute("href","css2.css");
+		}else {
+			_style.setAttribute("href","other.css");
+		}
+
+
+	}
+</script>

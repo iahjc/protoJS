@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script type="text/javascript" src="alinec.js"></script>
+	</head>
+
+	<body>
+
+		
+	</body>
+</html>
+
+<script>
+	tools.addLog("log");
+	tools.addMsgLog("log",$.getClient().width);
+
+	window.addEventListener("resize",function(){
+		tools.addMsgLog("log",$.getClient().width);
+	},false);
+</script>

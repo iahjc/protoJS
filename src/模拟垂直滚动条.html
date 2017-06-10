@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>垂直滚动条</title>
+	<script src="alinec.js"></script>
+	<style>
+		*{margin:0; padding:0;}
+		#demo{ width:300px; height:500px; position:absolute; border:1px solid red; margin:100px; }
+		.scroll{ width:18px; height:100%; background-color:#eee; position:absolute; right:0; z-index:2;}
+		.bar{ width:100%; position:absolute; height:60px; border-radius:9px; background-color:red; cursor:move;}
+		.content{ width:282px; height:auto; font-size:12px; position:absolute; left:0; line-height:24px;}
+	</style>
+</head>
+<body>
+	<div id="demo">
+		<div class="content">
+			<p>你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</p>
+		</div>
+		<div class="scroll">
+			<div class="bar"></div>
+		</div>
+		
+
+	</div>
+</body>
+</html>
+
+
+<script>
+	tools.addLog("log");
+	tools.addMsgLog("log",$.getDom(".content").offsetHeight);
+
+	(function(tools,$){
+
+		function scroll (){
+			this.cH = 0; //内容高度
+			this.sH = 0; //可视高度
+			this.bH = 0; //滚动条高度
+			this.cTop = 0;
+			this.bTop = 0;
+			this.bY = 0;
+			this.b_Y = 0;
+			
+		}
+		
+		scroll.prototype.dom = {};
+		scroll.prototype = {
+			dom:{},
+			init:function(){
+				this.bindDom();
+				this.cH = this.dom.cont.offsetHeight;
+				
+				this.sH = this.dom.demo.offsetHeight;
+				console.log(this.cH);
+				this.bH = this.sH / this.cH * this.sH;
+
+				this.dom.bar.style.height = this.bH + "px";
+
+				this.bindEvent();
+			},
+			bindDom:function(){
+				this.dom = {
+					bar:$.getDom(".bar"),
+					cont:$.getDom(".content"),
+					demo:$.getDom("#demo")
+				}
+			},
+			bindEvent:function(){
+				var self = this;
+				$.addEvent(this.dom.bar,"mousedown",function(event){
+					self.mousedown(event,self);
+					
+					document.onmousemove = function(event){
+						var event = event || window.event;
+						self.mousemove(event,self);
+					}
+				});
+
+				document.onmouseup = function(){
+					document.onmousemove = null;
+				}
+				
+			},
+			mousedown:function(event,self){
+				var event = event || window.event;
+				self.bY = event.clientY;
+				self.bTop = self.dom.bar.offsetTop;
+			},
+			mousemove:function(event,self){
+				var currentPageY = event.clientY;
+				self.dom.bar.style.top = self.bTop + (currentPageY - self.bY) +"px";
+
+				self.dom.cont.style.top = -(self.dom.bar.offsetTop/self.sH*self.cH)+"px";
+
+				window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();   // 防止拖动滑块的时候， 选中文字
+
+
+			}
+		};
+
+
+		window.scroll = new scroll();
+		
+	})(tools,$);
+
+	window.onload = function(){
+		scroll.init();
+	}
+
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="alinec.js"></script>
+		<style>
+			#wc{ margin:100px;}
+			#small{ width:350px; height:350px; border:1px solid #ccc; }
+			#small img{ display:block; width:100%;}
+			#big{ width:450px; height:450px; border:1px solid #ccc; overflow:hidden; position:absolute; left:460px; top:100px;}
+			#big img{ position:absolute; left:0; top:0;}
+		</style>
+	</head>
+	<body>
+		<div id="wc">
+			<div id="small">
+				<img src="001.jpg"/>
+			</div>
+
+			<div id="big">
+				<img src="0001.jpg"/>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		tools.addLog("log");
+		var _bigImg = $.getId("big").getElementsByTagName("img")[0];
+		$.addEvent($.getId("small"),"mousemove",function(event){
+			
+			var event = event || window.event;
+			var _ll = event.pageX - this.offsetLeft;
+			var _lt = event.pageY - this.offsetTop;
+			console.log("log",_lt);
+			_bigImg.style.left =  - (_ll/this.offsetWidth *_bigImg.offsetWidth)/(_bigImg.offsetWidth/this.offsetWidth) + "px";
+			_bigImg.style.top = - (_lt/this.offsetWidth *_bigImg.offsetWidth)/(_bigImg.offsetWidth/this.offsetWidth) + "px";
+		});
+	</script>
+</html>

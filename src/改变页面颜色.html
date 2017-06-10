@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script type="text/javascript" src="alinec.js"></script>
+	</head>
+	<body>
+	</body>
+</html>
+
+<script>
+	setBackgroundColor($.getClient().width);
+	window.addEventListener("resize",function(){
+		setBackgroundColor($.getClient().width);
+	},false);
+
+
+	function setBackgroundColor(size){
+		if(size > 1000){
+			document.body.style.backgroundColor = "red";
+		}else if(size > 600 && $.getClient().width <1000 ){
+			document.body.style.backgroundColor = "green";
+		}else {
+			document.body.style.backgroundColor = "pink";
+		}
+	}
+</script>

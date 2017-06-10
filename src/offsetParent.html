@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<script src="alinec.js"></script>
+		<style>
+			#father{ position:absolute;}
+		</style>
+	</head>
+	<body>
+		<div id="father">
+			<div id="son"></div>
+		</div>
+	</body>
+</html>
+
+<script>
+		
+		tools.addLog("log");
+
+		$.addEvent(tools.addBtn({
+			text:"offsetParent",
+			id:"ddd",
+			width:"100px",
+			height:"32px",
+			fontSize:"12px"
+		}),"click",function(){
+			tools.addMsgLog("log","offsetTop:  "+$.getId("son").offsetParent);
+			tools.addMsgLog("log","输出节点标签");
+			
+		});
+</script>

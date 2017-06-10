@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="alinec.js"></script>
+		<style>
+			#wLine{ position:relative; top:150px; left:100px; width:400px; background-color:#ccc; height:8px;}
+			#sLine{ position:absolute; left:0; width:8px; height:16px; background:red; top:-4px; cursor:pointer;}
+		</style>
+	</head>
+	<body>
+		<div id="wLine">
+			<div id="sLine"></div>
+		</div>
+	</body>
+</html>
+<script>
+	var _wLine = $.getId("wLine");
+	var _sLine = $.getId("sLine");
+	
+	var x = 0,y = 0; 
+	var _lr = _wLine.offsetLeft;
+var isAnim = true;
+	tools.addLog("log");
+	_sLine.onmousedown = function(event){
+		var event = event || window.event;
+		tools.addMsgLog("log","clientX:"+event.clientX);
+		tools.addMsgLog("log","clientX:"+event.pageX);
+		tools.addMsgLog("log","offsetLeft:"+this.offsetLeft);
+		
+		x = event.clientX;
+		isAnim = true;
+		document.onmousemove = function(event){
+			var evt = event || window.event;
+			if(isAnim)
+			_sLine.style.left = evt.clientX - _lr + "px";		
+		}
+		
+	};
+
+	document.onmouseup = function(){
+		isAnim = false;
+	}
+
+</script>

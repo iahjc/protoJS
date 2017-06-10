@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="alinec.js"></script>
+		<style>
+			*{margin:0; padding:0; list-style:none; }
+			#demo{ width:500px; height:200px; padding:7px; border:1px solid #ccc; margin:100px auto; position:relative;}
+			#screen{ width:500px; height:200px; overflow:hidden;position:relative;}
+			#ul{ position:absolute; left:0; top:0;width:3000px;}
+			#ul li{ width:500px; float:left; overflow:hidden; height:200px; }
+
+			#demo ol {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				line-height: 20px;
+				text-align: center;
+			}
+
+			#demo ol li {
+				float: left;
+				width: 20px;
+				height: 20px;
+				background: #fff;
+				border: 1px solid #ccc;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			#demo .current{
+				background-color:yellow;
+					
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<div id="screen">
+				<ul id="ul">
+					<li><img src="taobao/1.jpg" width="500" height="200"/></li>
+					<li><img src="taobao/2.jpg" width="500" height="200"/></li>
+					<li><img src="taobao/3.jpg" width="500" height="200"/></li>
+					<li><img src="taobao/4.jpg" width="500" height="200"/></li>
+					<li><img src="taobao/5.jpg" width="500" height="200"/></li>
+				</ul>
+			</div>
+
+			<ol>
+				<li class="current">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ol>
+		</div>
+	</body>
+</html>
+
+<script>
+	var lb = {
+		index:0,
+		loop:true,
+		timer:null,
+		time1:null,
+		dom:{
+		
+		},
+		bindDom:function(){
+			this.dom.demo = document.getElementById("demo");
+			this.dom.screen = document.getElementById("screen");
+			this.dom.sc_ul = document.getElementById("ul");
+			this.dom.sc_ul_li = this.dom.sc_ul.getElementsByTagName("li");
+			this.dom.ol_li = document.querySelectorAll("ol li");
+		},
+		bindEvent:function(){
+			var self = this;
+			for(var i =0; i< this.dom.ol_li.length; i++){
+				this.dom.ol_li[i].index = i;
+				this.dom.ol_li[i].addEventListener("click",function(){
+					self.jump(this);
+				},false);
+
+				
+			}
+		},
+		init:function(loop){
+			this.loop = loop;
+			lb.bindDom();
+			lb.bindEvent();	
+			lb.cloneLi();
+			this.loopAnim();
+			
+		},
+		cloneLi:function(){
+			this.dom.sc_ul.appendChild(this.dom.sc_ul_li[0].cloneNode(true));
+		},
+		loopAnim:function(){
+			var self = this;
+			if(this.loop){
+				this.time1 = setInterval(function(){
+					self.index++;
+					
+					if(self.index > 5){
+						self.dom.sc_ul.style.left = 0;
+						self.index = 1
+					}
+
+
+					self.animation(self.index*500);
+					self.setNav(self);
+
+					if(self.index > 5){
+						self.dom.sc_ul.style.left = 0;
+						
+					}
+				},1000);
+			}
+		},
+		jump:function(obj){
+			this.animation(obj.index*500);
+			this.setNav(obj);
+		},
+		setNav:function(obj){
+			for(var i =0; i< this.dom.ol_li.length; i++){
+				this.dom.ol_li[i].setAttribute("class","");
+				
+				
+				if(obj.index == 5){
+					
+					this.dom.ol_li[0].setAttribute("class","current");
+				}
+
+				if(i == obj.index) this.dom.ol_li[i].setAttribute("class","current");
+			}
+
+			
+
+		},
+		animation:function(target){
+			clearInterval(this.timer);
+			var self = this;
+	
+			this.timer = setInterval(function(){
+				var step = (target - Math.abs(self.dom.sc_ul.offsetLeft))/10;
+				step = step > 0 ? Math.ceil(step) : Math.floor(step);
+				self.dom.sc_ul.style.left = -(Math.abs(self.dom.sc_ul.offsetLeft) + step) + "px";
+				if(target === Math.abs(self.dom.sc_ul.offsetLeft)) clearInterval(self.timer);
+
+				console.log(11);
+			},10);
+		}
+	}
+
+	lb.init(true);
+</script>

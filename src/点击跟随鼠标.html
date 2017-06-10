@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="alinec.js"></script>
+		<style>
+			#s{ width:100px;  position:absolute;}
+			#s img{ display:block; width:100%;}
+		</style>
+	</head>
+	<body>
+		<div id="s"><img src="img.jpg"/></div>
+	</body>
+</html>
+
+<script>
+	$.addEvent(document,"click",function(event){
+		var event = event || window.event;
+		
+		target = event.pageX;
+		target1 = event.pageY;
+		
+	});
+
+	setInterval(animation,10);
+
+	var leater =0,target=0;
+	var leater1 = 0,target1 = 0;
+	function animation(){
+		leater = leater + (target - leater)/10;
+		leater1 = leater1 + (target1 -leater1)/10;
+		$.getId("s").style.left = (leater -45) + "px";
+		$.getId("s").style.top = (leater1 -30)+ "px";
+	}
+
+
+</script>

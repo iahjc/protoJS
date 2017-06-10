@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>offsetWidth</title>
+	<style>
+		*{margin:0; padding:0;}
+		#demo{
+			
+			border:1px solid red;
+			word-wrap:break-word;
+			
+		}
+		
+		.btn{ width:80px; height:32px; font-size:12px;  border:1px solid #444; text-align:center; line-height:32px; display:inline-block;}
+
+
+
+	</style>
+	<script src="alinec.js"></script>
+</head>
+<body>
+	<div id="demo">
+		asdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfasdasdfasdfasdfasdfasdfasdfasdfa
+	</div>
+
+	<div id="getOffsetWidth" class="btn">offsetWidth</div>
+	<div id="getOffsetHeight" class="btn">offsetHeight</div>
+	<div id="getStyleWidth" class="btn">style.Width</div>
+	<script>
+		
+		
+		$.addEvent($.getId("getOffsetWidth"),"click",function(){
+			alert($.getId("demo").offsetWidth);
+		});
+
+		$.addEvent($.getId("getOffsetHeight"),"click",function(){
+			alert($.getId("demo").offsetHeight);
+		});
+		
+		$.addEvent($.getId("getStyleWidth"),"click",function(){
+			alert("style width 只能得到行内样式");
+		});
+		
+	</script>
+</body>
+</html>
