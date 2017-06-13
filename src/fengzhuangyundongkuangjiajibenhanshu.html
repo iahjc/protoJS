@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>封装运动框架基本函数（单个属性）</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+		.box{ width:100px; height:300px; background-color: pink; position: absolute; left: 10px; top:10px;
+		margin:10px; }
+		#btn{ width:60px; hegiht:32px; border:1px solid #ccc; }
+		</style>
+	</head>
+	<body>
+
+	<button id="btn">300</button>
+
+		<div class="box"></div>
+	</body>
+</html>
+
+<script>
+
+
+
+
+function animation(obj){
+	this.timer = null;
+	this.target = 0;
+	this.obj = document.querySelector(obj);
+}
+
+animation.prototype = {
+	start:function(target,attr,callback){
+		if(target){
+			this.target = target;
+		}
+
+		this.stop();
+
+		var self = this;
+		this.timer = setInterval(function(){
+			
+			var attr_pos = parseInt($.getCurrentStyle(self.obj,attr).replace("px",""));
+			console.log(attr_pos);
+			var step = (self.target - attr_pos)/10;
+
+			step = step > 0 ? Math.ceil(step) : Math.floor(step);	
+
+			self.obj.style[attr] = attr_pos + step + "px";
+
+			if((attr_pos + step) == target ) self.stop(callback);
+
+		},30);
+
+	},
+	stop:function(){
+		var self = this;
+		clearInterval(self.timer);
+		if(arguments[0])
+			arguments[0]();
+		
+
+	}
+};
+
+var box = new animation(".box");
+
+document.querySelector("#btn").onclick = function(){
+
+	box.start(300,"width",function(){
+		box.start(400,"top",function(){
+
+			box.start(100,"width",function(){
+				box.start(10,"top",null)
+			})
+		});
+	});
+}
+
+</script>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>封装运动框架基本函数（添加透明度）</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+		.box{ width:100px; height:300px; background-color: pink; position: absolute; left: 10px; top:10px;
+		margin:10px; }
+		#btn{ width:60px; hegiht:32px; border:1px solid #ccc; }
+		</style>
+	</head>
+	<body>
+
+	<button id="btn">start</button>
+
+		<div class="box"></div>
+	</body>
+</html>
+
+<script>
+
+
+
+
+function animation(obj){
+	this.timer = null;
+	this.target = 0;
+	this.obj = document.querySelector(obj);
+}
+
+animation.prototype = {
+	start:function(attr,callback){
+
+		this.stop();
+
+		var self = this;
+		this.timer = setInterval(function(){
+			
+			var flag = true;
+
+			for(var i in attr){
+				var attr_pos = 0;
+				if (i === "opacity") {
+					attr_pos = Math.round(parseInt($.getCurrentStyle(self.obj,i)*100)) || 0;
+				}else{
+					attr_pos = parseInt($.getCurrentStyle(self.obj,i).replace("px",""));
+				}
+
+
+				var step = (attr[i]- attr_pos)/10;
+				step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+				if(i === "opacity"){
+					//判断浏览器
+					if ("opacity" in self.obj.style) {
+						self.obj.style[i] = (attr_pos + step)/100;
+					}else{
+						self.obj.style.filter = "alpha(opacity = " +(attr_pos + step) *10 + ")";
+					}		
+				}else if(i === "zIndex"){
+					self.obj.style.zIndex = attr[i];
+				}else{
+					
+					self.obj.style[i] = attr_pos + step + "px";
+					
+				}
+
+				
+				if(attr_pos != attr[i] ) flag = false; 
+				
+			}
+
+			if (flag)self.stop(callback);
+			
+
+		},30);
+
+	},
+	stop:function(){
+		var self = this;
+		clearInterval(self.timer);
+		if(arguments[0])
+			arguments[0]();
+		
+
+	}
+};
+
+var box = new animation(".box");
+
+document.querySelector("#btn").onclick = function(){
+
+	box.start({"width":300,"height":300,"top":300,"left":300,"opacity":30},function(){
+		box.start({"width":100,"height":100,"top":10,"left":10,"zIndex":30},null);
+	});
+
+}
+
+</script>

@@ -22,9 +22,6 @@ $.prototype = {
 			obj.style.top = self.leader + "px";
 			if(self.leader == target) {self.clearAnimate()};
 			
-			//console.log("leader:" + leader + "   target: " + target);
-
-			
 		},30);
 	},
 	clearAnimate:function(){
@@ -34,52 +31,52 @@ $.prototype = {
 		return document.querySelector(str);
 	},
 	getScroll:function(){
-		if(window.pageYOffset != null) //ie9 + ºÍÆäËûä¯ÀÀÆ÷
+		if(window.pageYOffset != null) //ie9+
 		{
 			return {
 				left:window.pageXOffset,
 				top:window.pageYOffset
 			}
-		}else if(document.compatNode == "css1Compat") //ÉùÃ÷ÁËDTDµÄ
-		{ //¼ì²âÊÇ²»ÊÇ¹ÖÒìÄ£Ê½µÄä¯ÀÀÆ÷ -- ¾ÍÊÇÃ»ÓĞÉúÃü <!DOCTYPE html>
+		}else if(document.compatNode == "css1Compat") //å…¶ä»–æµè§ˆå™¨
+		{ 
 			return {
 				left:document.documentElement.scrollLeft,
 				top:document.documentElement.scrollTop
 			}
 		}
-		//¹ÖÒìÄ£Ê½
+		
 		return {
 			left:document.body.scrollLeft,
 			top:document.body.scrollTop
 		}
 	},
 	getClient:function(){
-		if(window.innerWidth != null){ //ie9 + ×îĞÂä¯ÀÀÆ÷
+		if(window.innerWidth != null){ //ie9 +
 			return {
 				width:window.innerWidth,
 				height:window.innerHeight
 			}
-		}else if(document.compatMode === "css1Compat"){ //±ê×¼ä¯ÀÀÆ÷
+		}else if(document.compatMode === "css1Compat"){ 
 			return {
 				width:document.documentElement.clientWidth,
 				height:document.documentElement.clientHeight
 			}
 		}
 
-		//¹ÖÒìä¯ÀÀÆ÷
+		
 		return {
 			width:document.body.clientWidth,
 			height:document.body.clientHeight
 		}
 	},
-	//¼ì²â·Ö±æÂÊ
+	
 	getFBL:function(){
 		return {
 			width:document.client.width,
 			height:document.client.height
 		}
 	},
-	//È¡ÏûÃ°Åİ
+
 	clearBubble:function(event){
 		var event = event || window.event;
 
@@ -95,6 +92,13 @@ $.prototype = {
 		var event = event || window.event;
 		
 		return targetId = event.target ? event.target.id : event.srcElement.id;
+	},
+	getCurrentStyle:function(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}
+
+		return window.getComputedStyle(obj,null)[attr];
 	}
 
 };

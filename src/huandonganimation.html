@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="styles/app.css"/>
+		<script src="scripts/alinec.js"></script>
+		<style>
+		#btn { border:1px solid #ccc; }
+		.box{
+			width:100px;
+			height:100px;
+			background-color:pink;
+			position: absolute;
+			top:40px;
+		}
+		</style>
+	</head>
+
+	<body>
+		<button id="btn">开始</button>
+
+		<div class="box"></div>
+	</body>
+</html>
+
+<script>
+
+document.getElementById("btn").addEventListener("click",function(){
+
+	animation(300,function(){
+		alert("结束")
+	});
+},false)
+
+
+var timer = null,_box = document.querySelector(".box")
+function animation(target,callback){
+	clearInterval(timer)
+
+	timer = setInterval(function(){
+		var step = (target - _box.offsetLeft)/10
+		step = step  > 0 ? Math.ceil(step) : Math.floor(step);
+		_box.style.left = _box.offsetLeft + step + "px"
+
+		if(_box.offsetLeft >= target) {
+			clearInterval(timer)
+			callback();
+		}
+
+	},30);
+
+}
+</script>

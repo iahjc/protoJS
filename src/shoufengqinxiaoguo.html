@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>手风琴效果</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+		.box{ width:100px; height:300px; background-color: pink; position: absolute; left: 10px; top:10px;
+		margin:10px; }
+		.demo{ width: 1152px; height: 400px; overflow: hidden; background-color:#ccc; }
+		.demo ul{ width: 1300px; height: 400px; }
+		.demo ul li{ width: 240px; height: 400px; list-style:none; float: left; overflow: hidden;	 }
+		.demo ul li img{ height: 100%; }
+		</style>
+	</head>
+	<body>
+
+	<div class="demo">
+		<ul id="ul">
+			<li class="li0"><img src="images/sfq/1.jpg"/></li>
+			<li class="li1"><img src="images/sfq/2.jpg"/></li>
+			<li class="li2"><img src="images/sfq/3.jpg"/></li>
+			<li class="li3"><img src="images/sfq/4.jpg"/></li>
+			<li class="li4"><img src="images/sfq/5.jpg"/></li>
+		</ul>
+	</div>
+</html>
+
+<script>
+function animation(obj){
+	this.timer = null;
+	this.target = 0;
+	this.obj = document.querySelector(obj);
+}
+
+animation.prototype = {
+	start:function(attr,callback){
+
+		this.stop();
+
+		var self = this;
+		this.timer = setInterval(function(){
+			
+			var flag = true;
+
+			for(var i in attr){
+				var attr_pos = 0;
+				if (i === "opacity") {
+					attr_pos = Math.round(parseInt($.getCurrentStyle(self.obj,i)*100)) || 0;
+				}else{
+					attr_pos = parseInt($.getCurrentStyle(self.obj,i).replace("px",""));
+				}
+
+
+				var step = (attr[i]- attr_pos)/10;
+				step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+				if(i === "opacity"){
+					//判断浏览器
+					if ("opacity" in self.obj.style) {
+						self.obj.style[i] = (attr_pos + step)/100;
+					}else{
+						self.obj.style.filter = "alpha(opacity = " +(attr_pos + step) *10 + ")";
+					}		
+				}else if(i === "zIndex"){
+					self.obj.style.zIndex = attr[i];
+				}else{
+					
+					self.obj.style[i] = attr_pos + step + "px";
+					
+				}
+
+				
+				if(attr_pos != attr[i] ) flag = false; 
+				
+			}
+
+			if (flag)self.stop(callback);
+			
+
+		},10);
+
+	},
+	stop:function(){
+		var self = this;
+		clearInterval(self.timer);
+		if(arguments[0])
+			arguments[0]();
+		
+
+	}
+};
+
+
+var li0 = new animation(".li0");
+var li1 = new animation(".li1");
+var li2 = new animation(".li2");
+var li3 = new animation(".li3");
+var li4 = new animation(".li4");
+var lis = [li0,li1,li2,li3,li4];
+
+var _ul = document.getElementById("ul");
+
+var _ul_lis = _ul.children;
+
+for(var i =0; i< _ul_lis.length; i++){
+	_ul_lis[i].index = i;
+	_ul_lis[i].onmouseover = function(){
+		jump(this);
+		
+	}
+	_ul_lis[i].onmouseout = function(){
+		jump_1(this);
+	}
+}
+
+function jump(obj){
+	for(var j = 0; j < lis.length ; j++){
+		if(obj.index == j){
+			lis[j].start({"width":800},null);
+		}else{
+			lis[j].start({"width":100},null);
+		}
+	}
+}
+
+function jump_1(obj){
+	for(var j = 0; j < lis.length ; j++){
+		lis[j].start({"width":240},null);
+	}
+}
+
+
+
+
+
+
+
+
+</script>

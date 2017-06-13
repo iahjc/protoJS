@@ -21,7 +21,7 @@ gulp.task('style',function(){
 	//这里是在执行style任务时自动执行
 	gulp.src(['src/styles/**/*.less','!src/styles/**/_*.less'])
 		.pipe(less())
-		.pipe(cssnano())
+		/*.pipe(cssnano())*/
 		.pipe(gulp.dest('dist/styles'))
 		.pipe(browserSync.reload({stream:true}))
 });
@@ -47,7 +47,7 @@ gulp.task('image',function(){
 //4.html压缩
 gulp.task('html',function(){
 	gulp.src('src/**/*.html')
-		.pipe(htmlmin({
+		/*.pipe(htmlmin({
 			  collapseWhitespace: true,
 			  collapseBooleanAttributes: true,
 			  removeAttributeQuotes: true,
@@ -55,7 +55,7 @@ gulp.task('html',function(){
 			  removeEmptyAttributes: true,
 			  removeScriptTypeAttributes: true,
 			  removeStyleLinkTypeAttributes: true,
-			}))
+			}))*/
 		.pipe(gulp.dest("dist"))
 		.pipe(browserSync.reload({stream:true}))
 });

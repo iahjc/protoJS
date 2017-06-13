@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>返回当前样式的函数</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+		.box{ width:100px; height:300px; background-color: pink; position: absolute; left: 10px; top:10px;
+		margin:10px; }
+		</style>
+	</head>
+	<body>
+		<div class="box"></div>
+	</body>
+</html>
+
+<script>
+var box = document.querySelector(".box");
+tools.addLog("log");
+
+
+
+tools.addMsgLog("log","getComputedStyle(obj,null).left(attr) :" + $.getCurrentStyle(box,"left"));
+tools.addMsgLog("log","getComputedStyle(obj,null).top(attr) :" + $.getCurrentStyle(box,"top"));
+tools.addMsgLog("log","getComputedStyle(obj,null).width(attr) :" + $.getCurrentStyle(box,"width"));
+</script>

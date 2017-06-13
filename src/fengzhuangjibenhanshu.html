@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>封装基本函数</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+
+		<style>
+		#btn1,#btn2{ border:1px solid #ccc; width:60px; height:32px; line-height: 32px }
+		.box1,.box2{ width:100px; height: 100px; background-color:red; position: absolute; left: 0; top:60px; }
+		.box2{ top:200px; }
+		</style>
+	</head>
+
+	<body>
+		<button id="btn1">200</button>
+		<button id="btn2">400</button>
+
+		<div class="box1"></div>
+		<div class="box2"></div>
+	</body>
+</html>
+
+<script>
+	function animation(target,targetDom){
+		this.target = target;
+		this.targetDom = document.querySelector(targetDom);
+		this.timer = null;
+	}
+
+
+	animation.prototype = {
+		start:function(target){
+			var self = this;
+			
+			if (target) self.target = target;
+			
+
+			this.timer = setInterval(function(){
+
+				var step = (self.target - self.targetDom.offsetLeft)/10;
+				step = step > 0 ? Math.ceil(step) : Math.floor(step);	
+
+				self.targetDom.style.left = self.targetDom.offsetLeft + step + "px";
+
+				if(self.targetDom.offsetLeft >= self.target){
+					self.stop();
+				}
+			},30);	
+		},
+		stop:function(){
+			var self = this;
+			clearInterval(self.timer);
+		}
+	}
+
+
+	var _btn1 = new animation(200,".box1");
+	var _btn2 = new animation(400,".box2");
+	document.getElementById("btn1").onclick = function(){
+		_btn1.start(300);
+		_btn2.start(400);
+	};
+
+	document.getElementById("btn2").onclick = function(){
+		_btn1.start(500);
+		_btn2.start(100);
+	}
+
+
+	
+</script>

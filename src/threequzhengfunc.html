@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>三个取整函数</title>
+		<link rel="stylesheet" type="text/css" href="styles/app.css">
+		<script type="text/javascript" src="scripts/alinec.js"></script>
+	</head>
+
+	<body>
+	</body>
+</html>
+
+<script>
+	tools.addLog("log");
+	tools.addMsgLog("log","ceil 往上取整");
+	tools.addMsgLog("log","Math.ceil(1.01) : " + Math.ceil(1.01));
+	tools.addMsgLog("log","Math.ceil(1.9) : " + Math.ceil(1.9));
+	tools.addMsgLog("log","Math.ceil(-1.3) : " + Math.ceil(-1.3));
+
+	//向下取整
+	tools.addMsgLog("log","往下取整");
+	tools.addMsgLog("log","Math.floor(1.01) : " + Math.floor(1.01));
+	tools.addMsgLog("log","Math.floor(1.9) : " + Math.floor(1.9));
+	tools.addMsgLog("log","Math.floor(-1.3) : " + Math.floor(-1.3));
+
+	//四舍五入
+	tools.addMsgLog("log","四舍五入");
+	tools.addMsgLog("log","Math.round(1.01) : " + Math.round(1.01));
+	tools.addMsgLog("log","Math.round(1.5) : " + Math.round(1.5));
+</script>
