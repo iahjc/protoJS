@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>闭包使用</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+		
+		</style>
+	</head>
+	<body>
+
+	
+</html>
+
+<script>
+function outerFun(){
+	var a =0;
+
+	return function(){
+		a++;
+		alert(a);
+	};
+
+}
+
+var obj = outerFun();  
+obj(); obj();
+var obj2 = outerFun();
+obj2(); obj2();
+
+
+</script>

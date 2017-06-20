@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>tab选项卡 闭包</title>
+		<link rel="stylesheet" href="styles/app.css">
+		<script src="scripts/alinec.js"></script>
+		<style>
+			#tab_t{ height: 30px; }
+			#tab_t li{ float: left; height:30px; width: 80px; list-style: none; margin-right: 10px; border:1px solid #000; font-size: 12px; color: #000; line-height:30px; text-align: center;  }
+			#tab_b{ height: 270px; width: 360px; }
+			#tab_b li{ display: none; list-style: none; width: 360px; height:270px; background: #ccc; font-size: 12px; }
+			#tab_b li:first-child{ display: none; }
+			.t_cur{ background-color: pink; }
+			#tab_b li.b_cur{ background-color: #444;  display: block; color: #fff;	}
+		</style>
+	</head>
+	<body>
+	<div style="margin:100px;">
+		<ul id="tab_t">
+			<li class="t_cur">新闻</li>
+			<li>体育</li>
+			<li>娱乐</li>
+			<li>八卦</li>
+		</ul>
+
+		<ul id="tab_b">
+			<li class="b_cur">新闻模块</li>
+			<li>体育模块</li>
+			<li>娱乐模块</li>
+			<li>八卦模块</li>
+		</ul>
+		</div>
+	</body>
+</html>
+
+<script>
+var tab_t = document.getElementById("tab_t");
+var tab_b = document.getElementById("tab_b");
+
+var t_lis = tab_t.getElementsByTagName("li");
+var b_lis = tab_b.getElementsByTagName("li");
+
+
+for(var i =0; i< t_lis.length; i++){
+	t_lis[i].onmouseover = function(num){
+		console.log(num	);
+		return function(){
+			console.log(11);
+			for(var j = 0; j< b_lis.length; j++){
+				t_lis[j].setAttribute("class","")
+				b_lis[j].setAttribute("class","")
+				if(j === num){
+					t_lis[num].setAttribute("class","t_cur")
+					b_lis[num].setAttribute("class","b_cur")
+				}
+			}
+		}
+		
+	}(i);
+}
+
+var na =function(){console.log(1);}();
+
+</script>
