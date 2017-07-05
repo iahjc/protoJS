@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>弹性运动</title>
+	<link rel="stylesheet" href="styles/app.css"/>
+	<script src="scripts/alinec.js"></script>
+	<style>
+		.info{
+			display: flex;
+			flex-flow: row-reverse;
+		}
+		dl{
+			margin-top:30px;
+			margin-left:30px;
+			display: flex;
+			flex-flow: column;
+		}
+		dl dt{
+			color:red;
+		}
+
+		#box{
+			width:100px;
+			height:100px;
+			background: red;
+			position: absolute; 
+			top:400px;
+		}
+
+		#btn{
+			position: absolute;
+			top:510px;
+		}
+
+		.line{
+			width:1px;
+			background:#000;
+
+			height:300px;
+
+			position: absolute;
+			top:400px;
+
+			left:500px;
+		}
+
+
+	</style>
+
+</head>
+<body>
+	<h1>弹性运动</h1>
+	<div class="info">
+		<dl>
+			<dt>加减速运动</dt>
+			<dd>速度不断增加或减少</dd>
+			<dd>速度减小到负值，会向相反的方向运动</dd>
+		</dl>
+
+		<dl>
+			<dt>弹性运动</dt>
+			<dd>在目标点左边，加速，在目标点右边，减速</dd>
+			<dd>根据距离，计算加速度</dd>
+		</dl>
+
+		<dl>
+			<dt>带摩擦的弹性运动</dt>
+			<dd>弹性运动加摩擦力</dd>
+		</dl>
+
+		<dl>
+			<dt>弹性公式</dt>
+			<dd>速度 += (目标点 - 当前值)/系数 系数范围(6 7 8)</dd>
+			<dd>速度 *= 摩擦系数 摩擦系数(0.7 0.75)</dd>
+		</dl>
+
+		<dl>
+			<dt>缓冲公式</dt>
+			<dd>速度 = (目标点 - 当前值)/系数</dd>
+			<dd>速度取整</dd>
+		</dl>
+
+		<dl>
+			<dt>IE弹性过界</dt>
+			<dd>ie浏览器宽高不能为负值</dd>
+		</dl>
+	</div>
+	<div id="box"></div>
+	<div class="line"></div>
+	<button id="btn" >弹性运动</button>
+
+	<script>
+		var timer = null;
+
+		document.getElementById("btn").onclick = function(){
+			startMove(500,document.getElementById("box"));
+		}
+
+		function startMove(target,obj){
+			clearInterval(timer);
+			var iSpeed = 0;
+			timer = setInterval(function(){
+				/*if(obj.offsetLeft < target){
+					iSpeed += (target - obj.offsetLeft)/50;
+				}else{
+					iSpeed -= (obj.offsetLeft - target)/50;
+
+				}*/
+
+				iSpeed += (500 - obj.offsetLeft)/7;
+
+				iSpeed *= 0.75;
+
+				if(Math.abs(iSpeed) <=1 && Math.abs(500 - obj.offsetLeft) <= 1){
+					clearInterval(timer);
+					//修复误差
+					obj.style.left = target +"px";
+					iSpeed = 0;
+					alert(1);
+				}else{
+
+					//解决IE低版本兼容
+					var H = obj.offsetLeft + iSpeed ;
+					if(H < 0) H = 0;
+
+					obj.style.left = H + "px";
+				}
+
+
+				
+
+				//if(obj.offsetLeft == target) clearInterval(timer);
+			},30);
+		}
+
+	</script>
+
+</body>
+</html>
+
