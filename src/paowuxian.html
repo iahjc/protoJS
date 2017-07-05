@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8"/>
-	<title>自由落体运动</title>
+	<title>抛物线运动</title>
 	<link rel="stylesheet" href="styles/app.css"/>
 	<script src="scripts/alinec.js"></script>
 	<style>
@@ -50,10 +50,10 @@
 
 </head>
 <body>
-	<h1>自由落体运动</h1>
+	<h1>抛物线运动</h1>
 	<div class="info">
 		<dl>
-			<dt>自由落体运动</dt>
+			<dt>抛物线运动</dt>
 			<dd>首先找到碰撞的临界点</dd>
 			<dd>确定运动的方向</dd>
 			<dd>然后去改对应的速度(速度取反)</dd>
@@ -75,22 +75,26 @@
 
 		function startMove(target,obj){
 			clearInterval(timer);
-			var iSpeedX = 0;
+			var iSpeed = -30;
+			var iSpeedX =  10;
 			
 			timer = setInterval(function(){
-				iSpeedX += 3;
-				var T = obj.offsetTop + iSpeedX;
+				iSpeed += 3;
+				var T = obj.offsetTop + iSpeed;
+				
 				if(T > document.documentElement.clientHeight - obj.offsetHeight){
 					T = document.documentElement.clientHeight - obj.offsetHeight;
-					iSpeedX *= -1;
-
+					iSpeed *= -1;
+					
 					//乘以损失
+					iSpeed *= 0.75;
 					iSpeedX *= 0.75;
 				}
 
 				//找到临界点取消定时器
 
 				obj.style.top = T + "px";
+				obj.style.left = obj.offsetLeft + iSpeedX +"px";
 			},30);
 		}
 
