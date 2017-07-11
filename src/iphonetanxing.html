@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maxmum-scale=1.0, user-scalable=no"/>
+		<style>
+			*{margin:0; padding: 0}
+			#wrapper{ width:300px; height:500px; position: relative; overflow: hidden; margin: 0 auto;} 
+
+			#wrapper ul{ width: 1200px; height: 500px; display: flex; position:absolute; left: 0; }
+			#wrapper ul li{ list-style: none; width:300px; height: 500px;}
+			#wrapper ul li:nth-of-type(1){
+				background: red;
+			}
+
+			#wrapper ul li:nth-of-type(2){
+				background: green;
+			}
+
+			#wrapper ul li:nth-of-type(3){
+				background:grey;
+			}
+
+			#wrapper ul li:nth-of-type(4){
+				background:#000;
+			}
+		</style>
+	</head>
+	
+	<body>
+
+	<div id="wrapper">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+
+	</body>
+</html>
+
+<script>
+
+var _ul = document.getElementById("wrapper").getElementsByTagName("ul")[0];
+console.log(_ul.innerHTML);
+
+var disX = 0;
+var downX = 0;
+var iNow = 0;
+
+_ul.onmousedown = function(event){
+	var event = event || window.event;
+
+	disX = event.clientX - _ul.offsetLeft;
+	downX = event.clientX;
+
+	document.onmousemove = function(event){
+		var event = event || window.event;
+		clearInterval(timer);
+
+		_ul.style.left = event.clientX - disX  + "px";
+	}
+
+	document.onmouseup = function(event){
+		var event = event || window.event;
+		document.onmousemove = null;
+		document.onmouseup = null;
+
+		if(event.clientX < downX){
+			
+			if(iNow != 3){
+				iNow++;
+			}
+			startMove(- iNow*300);
+		}else{
+			if(iNow != 0){
+				iNow--;
+			}
+
+			startMove(-iNow*300);
+		}
+	}
+
+	return false;
+}
+
+
+
+var timer = null;
+var iSpeed = 0;
+
+function startMove	(iTarget){
+	clearInterval(timer);
+
+
+	timer = setInterval(function(){
+		iSpeed += (iTarget - _ul.offsetLeft)/6;
+		iSpeed *= 0.75;
+
+		if (Math.abs(iSpeed) <= 1 && Math.abs(iTarget - _ul.offsetLeft) <= 1) {
+			clearInterval(timer);
+			iSpeed = 0;
+			_ul.style.left = iTarget + 'px';
+		}else{
+			_ul.style.left = _ul.offsetLeft + iSpeed + "px";
+		}
+	},30);
+}
+
+
+
+</script>

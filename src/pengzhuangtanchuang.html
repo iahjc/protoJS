@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<style>
+			*{margin:0; padding: 0}
+			body{ width: 100%; height: 100%; overflow: hidden; }
+			#wrapper{ width:200px; height:200px; position: absolute;
+				left:200px; top:100px;
+				background: black;
+			} 
+
+			
+		</style>
+	</head>
+	
+	<body>
+
+	<div id="wrapper">
+		
+	</div>
+
+	</body>
+</html>
+
+<script>
+
+var wrapper = document.getElementById("wrapper");
+
+
+var disX = 0;
+var disY = 0;
+var downX = 0;
+var downY = 0;
+
+var prevX = 0;
+var prevY = 0;
+
+var iSpeedX =0 ;
+var iSpeedY = 0;
+
+
+wrapper.onmousedown = function(event){
+	var event = event || window.event;
+
+	disX = event.clientX - wrapper.offsetLeft;
+	disY = event.clientY - wrapper.offsetTop;
+	
+	prevX = event.clientX;
+	prevY = event.clientY;
+
+	document.onmousemove = function(event){
+		var event = event || window.event;
+		
+
+
+		wrapper.style.left = event.clientX - disX  + "px";
+		wrapper.style.top = event.clientY - disY +"px";
+
+		iSpeedX = event.clientX - prevX;
+		iSpeedY = event.clientY - prevY;
+
+		prevX = event.clientX;
+		prevY = event.clientY;
+
+
+	}
+
+	document.onmouseup = function(event){
+		var event = event || window.event;
+		document.onmousemove = null;
+		document.onmouseup = null;
+
+		startMove();
+/*
+		if(event.clientX < downX){
+			
+			if(iNow != 3){
+				iNow++;
+			}
+			startMove(- iNow*300);
+		}else{
+			if(iNow != 0){
+				iNow--;
+			}
+
+			startMove(-iNow*300);
+		}*/
+	}
+
+	return false;
+}
+
+
+
+var timer = null;
+
+function startMove	(iTarget){
+	clearInterval(timer);
+
+
+	timer = setInterval(function(){
+
+		iSpeedY += 3;
+
+		var L = wrapper.offsetLeft + iSpeedX;
+		var T = wrapper.offsetTop + iSpeedY;
+
+		if(T > document.documentElement.clientHeight - wrapper.offsetHeight){
+			T = document.documentElement.clientHeight - wrapper.offsetHeight;
+			iSpeedY *= -1;
+			iSpeedY *= 0.75;
+			iSpeedX *= 0.75;
+		}else if(T < 0){
+			T = 0;
+			iSpeedY *= -1;
+			iSpeedY *= 0.75;
+		}
+
+		if(L > document.documentElement.clientWidth - wrapper.offsetWidth){
+			L = document.documentElement.clientWidth - wrapper.offsetWidth;
+			iSpeedX *= -1;
+			iSpeedX *= 0.75;
+
+		}else if(L < 0){
+			L = 0;
+			iSpeedX *= -1;
+			iSpeedX *= 0.75;
+		}
+
+
+		wrapper.style.left = L +"px";
+		wrapper.style.top = T +"px";
+	},30);
+}
+
+
+
+</script>
