@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable-no"/>
+		<title></title>
+		<style>
+			li{
+				list-style:none;
+				width:100px;
+				height:30px;
+				background: yellow;
+				margin:10px;
+			}
+
+			#div1 {
+				width:100px;
+				height: 100px;
+				background: red;
+				margin:200px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li draggable="true">a</li>
+			<li draggable="true">b</li>
+			<li draggable="true">c</li>
+		</ul>
+
+		<div id="div1"></div>
+	</body>
+</html>
+
+<script>
+	var aLi = document.getElementsByTagName("li");
+	for(var i =0; i< aLi.length; i++){
+		aLi[i].ondragstart = function(){
+
+		}
+		aLi[i].ondrag = function(){
+
+		}
+
+		aLi[i].ondragend = function(){
+
+		}
+	}
+
+	var oDiv = document.getElementById("div1");
+
+	oDiv.ondragenter = function(){
+
+	}
+
+	oDiv.ondragleave = function(){
+
+	}
+
+	oDiv.ondragover = function(ev){
+		var ev = ev || window.event;
+		//要想触发drop事件，就必须在dragover阻止默认事件
+		ev.preventDefault();
+	}
+
+	oDiv.ondrag = function(){
+
+	}
+
+</script>

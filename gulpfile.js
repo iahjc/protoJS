@@ -38,8 +38,8 @@ gulp.task('script',function(){
 
 //3.img复制
 gulp.task('image',function(){
-	gulp.src('src/images/**/*.*')
-		.pipe(gulp.dest("dist/images"))
+	gulp.src('src/images*/**/*.*')
+		.pipe(gulp.dest("dist/"))
 		.pipe(browserSync.reload({stream:true}))
 
 });
@@ -73,7 +73,7 @@ gulp.task('net_start_server',['style','script','image','html'],function(){
 
 	gulp.watch("src/styles/**/*.less",['style']);
 	gulp.watch("src/scripts/**/*.js",['script']);
-	gulp.watch("src/images/**/*.*",['image']);
+	gulp.watch("src/images*/**/*.*",['image']);
 	gulp.watch("src/**/*.html",['clean:html','html']);
 
 	browserSync({

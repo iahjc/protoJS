@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta  charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>360</title>
+		
+		<script src="scripts/require.js"></script>
+		<style>
+			*{margin:0; padding:0;}
+
+			.cont{
+				width:640px;
+				height:378px;
+				display: block;
+				margin:100px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cont">
+			<img id="img1" src="images/360/miaov (0).jpg"/>
+		
+		</div>
+		
+		<div id="bg"></div>
+		<div id="prog">
+			载入中.....<span>0%</span>
+			<div id="bar"></div>
+		</div>
+	</body>
+</html>
+
+<script>
+require.config({
+	paths:{
+		'360':"scripts/360"
+	}
+});
+require(['360'],function(xz){
+	xz.init();
+});
+</script>
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>ajax无刷新上传 未完成</title>
+	</head>
+	<body>
+		
+		<input type="file" id="myFile"/><br />
+		<input type="button" id="btn" value="上传"/>
+	</body>
+</html>
+
+<script>
+var oBtn = document.getElementById("btn");
+var oMyFile = document.getElementById("myFile");
+
+oBtn.onclick = function(){
+	//oMyFile.value 获取到的是file控件的value值，是文件的名称
+	//oMyFile.files 文件的列表对象
+
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(){
+
+	}
+
+	xhr.open('post','post_file.php',true);
+
+	xhr.setRequestHeader('X-Request-With','XMLHttpRequest');
+	xhr.send();
+
+}
+</script>

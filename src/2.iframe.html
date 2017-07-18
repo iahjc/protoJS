@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>跨文档消息通信</title>
+	</head>
+	<body>
+		
+
+		
+		<h1>这是2.iframe.html页面</h1>
+		<button id="btn1" >同域iframe修改父页面</button>
+		<button id="btn2">同域window.open()修改父页面</button>
+	</body>
+</html>
+
+<script>
+window.onload = function(){
+	/*
+	* message :当窗口接收到通过postMessage发送过来的数据的时候触发
+	*/
+
+	window.addEventListener("message",function(ev){
+		alert("主页面发送过来的内容iframe收到了");
+
+		//ev.data:发送过来的数据
+		//ev.origin 那个域发过来的
+		if(ev.data === "abc")
+		document.body.style.background="yellow";
+	},false);
+
+	//同域 iffame跟父窗体通信
+	document.getElementById("btn1").addEventListener("click",function(){
+		//parent =>window 如果当前页面是顶级，没有被其他页面所包含，那么parent就是当前页面的window对象，那么如果被包含了，
+		//则parent就是包含当前页面的父级页面的window对象
+		//window top parent
+		parent.document.body.style.background = "yellow";
+	},false);
+
+	document.getElementById("btn2").addEventListener("click",function(){
+		//window.opener:通过window.open方法打开当前页面的窗口window
+		window.opener.document.body.style.background = "yellow";
+	},false);
+
+
+}
+</script>

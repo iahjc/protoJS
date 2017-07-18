@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-sacle=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<title>三角函数 勾股定理 两点坐标求距离 js平方和开方</title>
+		<style>
+			.div1{
+				width:20px;
+				height:20px;
+				background: red;
+				position: absolute;
+				left: 800px;
+				top:300px;
+			}
+
+			.box{ width:1px; height: 1px; background: black; position: absolute;; }
+		</style>
+	</head>
+
+	<body>
+		<ul>
+			<li>Math.pow(2,3) 2的立方</li>
+			<li>Math.pow(3,2) 3的平方</li>
+			<li>Math.sqrt(9)   开方</li>
+		</ul>
+
+		<ul>
+			<li>sin cos tan</li>
+			<li>Math.sin() Math.cos() Math.tan()</li>
+			<li>弧度</li>
+			<li>360度 = 2π</li>
+			<li>1弧度= 180/π</li>
+		</ul>
+
+
+		<div class="div1">
+		</div>
+	</body>
+</html>
+<script>
+var oDiv = document.getElementsByTagName("div")[0];
+var r = 100;
+var x = 700;
+var y = 300;
+var num = 0;
+setInterval(function(){
+	num++;
+	//Math.sin(num*Math.PI/180) = a/r;
+	//Math.cos(num*Math.PI/180) = b/r;
+
+	var a = Math.sin(num*Math.PI/180) * r;
+	var b = Math.cos(num*Math.PI/180) * r;
+
+	oDiv.style.left = x +b +"px";
+	oDiv.style.top = y +a + "px";
+
+	var d = document.createElement("div");
+	d.className = "box";
+	
+
+	document.body.appendChild(d);
+d.style.left =oDiv.offsetLeft + "px";
+	d.style.top = oDiv.offsetTop +"px";
+
+},30);
+
+</script>

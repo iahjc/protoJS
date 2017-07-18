@@ -99,6 +99,25 @@ $.prototype = {
 		}
 
 		return window.getComputedStyle(obj,null)[attr];
+	},
+	ajax:function(){
+		var xhr = null;
+
+		if(window.XMLHttpRequrest){
+			xhr = XMLHttpRequrest();
+		}else{
+			xhr = new ActiveXObject('Microsoft.XMLHTTP');
+		}
+
+		xhr.open('get',"ajax.html",true);
+
+		xhr.send();
+
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				alert(xhr.responseText);
+			}
+		}
 	}
 
 };

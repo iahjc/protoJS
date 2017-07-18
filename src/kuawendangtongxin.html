@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>跨文档消息通信</title>
+	</head>
+	<body>
+		<ul>
+			<li>postMessage对象</li>
+			<li>一参：发送的数据，二参：接收的域</li>
+			<li>交互方式</li>
+			<li>iframe:父页面:contentWindow,子页面:window.top</li>
+			<li>窗口页：父页面：window.open,子页面:window.opener</li>
+			<li>接收事件</li>
+			<li>message</li>
+			<li>ev.origin:发送数据来源的域</li>
+			<li>ev.data:发送的数据</li>
+		</ul>
+
+		
+		<h1>iframe方式 我们可以通过js去访问被包含页面的DOM元素 (同域)</h1>
+		<input type="button" value="点击我，改变2.iframe.html的背景色" id="btn1"/>
+		<iframe id="myframe" src="2.iframe.html"></iframe>
+		<script>
+			var btn1 = document.getElementById("btn1");
+			var myIframe = document.getElementById("myframe");
+			btn1.addEventListener("click",function(){
+				//如果我们要操作一个iframe里面的dom元素，首先要获取到iframe引入的页面的window
+				myIframe.contentWindow.document.body.style.background="yellow";	
+			},false);
+		</script>
+
+		<h1>通过window.open方法  (同域)</h1>
+		<input type="button" value="点击我，开启一个新的窗口，打开2.iframe.html" id="btn2"/>
+		<input type="button" value="改变背景色" id="btn3"/>
+		<script>
+			var btn2 = document.getElementById("btn2");
+			var btn3 = document.getElementById("btn3");
+			var newWindow = null;
+			btn2.addEventListener("click",function(){
+				//newWindow返回的是被返回页面的window对象
+				newWindow = window.open("2.iframe.html","_blank");
+			},false);
+			btn3.addEventListener("click",function(){
+				
+				newWindow.document.body.style.background = "yellow";
+			},false);
+		</script>
+
+		<h1>跨域通信</h1>
+
+		<p>postMessage 需要修改iframe2的域名才能实现跨域</p>
+		<input type="button" value="点击我，改变2.iframe.html的背景色" id="btn4"/>
+		<iframe id="myframe2" src="http://localhost:3002/2.iframe.html"></iframe>
+
+		<script>
+			var btn4 = document.getElementById("btn4");
+			var myIframe = document.getElementById("myframe2");
+			//postMessage:可以通过这个方法给另外一个窗口发送消息。
+			//接收消息的窗口的window对象.postMessage();
+			btn4.addEventListener("click",function(){
+				/*
+				*第一个参数 发送的数据
+				第二个参数：接收数据的域名 带上协议
+				*/
+				myIframe.contentWindow.postMessage('abc',"http://localhost:3002");
+			},false);
+		</script>
+
+		<h1>AJAX跨域 XMLHttpRequest Level 2</h1>
+		<input id="ajaxBtn" type="button" value="ajax获取同域下的请求"/>
+		<input id="ajaxBtn2" type="button" value="ajax获取跨域下的请求"/>
+		<script>
+
+		document.getElementById("ajaxBtn").addEventListener('click',function(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status = 200){
+						alert(xhr.responseText);
+					}
+				}
+			}
+
+			xhr.open("get","ajax.html",true);
+			xhr.send();
+
+		},false);
+
+		document.getElementById("ajaxBtn2").addEventListener('click',function(){
+			//需要在服务器添加domin
+			//IE如果实现跨域 需要用到XDomainRequest
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status = 200){
+						alert(xhr.responseText);
+					}
+				}
+			}
+
+			xhr.open("get","ajax.html",true);
+			xhr.send();
+
+		},false);
+		
+		</script>
+
+	</body>
+</html>
